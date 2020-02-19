@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <!-- <div>
     黑马面面
-    <router-view ></router-view>
     <router-link to="#" >链接</router-link>
-  </div>
+  </div> -->
+
+  <router-view ></router-view>
  
 </template>
 
