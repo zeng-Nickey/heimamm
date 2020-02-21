@@ -56,11 +56,17 @@
     </div>
     <!-- 右侧图片 -->
     <img src="./imgs/login_banner_ele.png" alt />
+   <!-- 注册reg组件 -->
+   <reg></reg>
   </div>
 </template>
 
 <script>
+import reg from './components/reg'
 export default {
+  components:{
+    reg
+  },
   data() {
     return {
       form: {
