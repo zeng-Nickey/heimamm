@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 // 0. 导入 子组件
-import login from '../views/login/index.vue'
+import login from '../views/login/index'
 // 1. 导入 vue-router
 import VueRouter from 'vue-router'
 // 2. 注册 vue-router

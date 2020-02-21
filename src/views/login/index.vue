@@ -50,14 +50,14 @@
 
         <el-form-item>
           <el-button type="primary" @click="onSubmit" class="box-btn">登录</el-button>
-          <el-button type="primary" class="box-btn">注册</el-button>
+          <el-button type="primary"  class="box-btn">注册</el-button>
         </el-form-item>
       </el-form>
     </div>
     <!-- 右侧图片 -->
     <img src="./imgs/login_banner_ele.png" alt />
    <!-- 注册reg组件 -->
-   <reg></reg>
+   <reg ref="reg"></reg>
   </div>
 </template>
 
@@ -108,7 +108,10 @@ export default {
         }
       })
       // console.log("submit!");
-    }
+    },
+    // goreg(){
+    //  this.$refs.reg.dialogFormVisible="ture"
+    // }
   }
 };
 </script>
