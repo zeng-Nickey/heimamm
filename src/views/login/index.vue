@@ -39,11 +39,12 @@
 
         <el-form-item prop="checkbox">
           <div class="checkbox">
-            <el-checkbox v-model="form.checkbox">
+            
+            <el-checkbox v-model="form.checkbox">  </el-checkbox>
               我已阅读并同意
               <el-link type="primary" :underline="false">用户协议</el-link>和
               <el-link type="primary" :underline="false">隐私条款</el-link>
-            </el-checkbox>
+          
           </div>
         </el-form-item>
 
