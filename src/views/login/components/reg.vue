@@ -26,7 +26,7 @@
             </el-col>
 
             <el-col :span="7">
-              <img class="code" src="./imgs/login_captcha.png" alt />
+              <img class="code" src="../imgs/login_captcha.png" alt />
             </el-col>
           </el-row>
         </el-form-item>
@@ -39,7 +39,7 @@
             </el-col>
 
             <el-col :span="7">
-              <img class="code" src="./imgs/login_captcha.png" alt />
+              <img class="code" src="../imgs/login_captcha.png" alt />
             </el-col>
           </el-row>
         </el-form-item>
