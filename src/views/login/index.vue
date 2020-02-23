@@ -110,7 +110,7 @@ export default {
       // console.log("submit!");
     },
     goreg(){
-     this.$refs.reg.dialogFormVisible="ture"
+     this.$refs.reg.dialogFormVisible=true
     }
   }
 };
