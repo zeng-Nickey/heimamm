@@ -32,7 +32,7 @@
             </el-col>
 
             <el-col :span="7">
-              <img class="code" src="./imgs/login_captcha.png" alt />
+              <img class="code" :src="imgUrl" alt />
             </el-col>
           </el-row>
         </el-form-item>
@@ -69,6 +69,9 @@ export default {
   },
   data() {
     return {
+      //图片验证码
+      imgUrl:"",
+      
       form: {
         phone: "",
         password: "",
