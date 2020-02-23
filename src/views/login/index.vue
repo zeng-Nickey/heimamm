@@ -32,7 +32,7 @@
             </el-col>
 
             <el-col :span="7">
-              <img class="code" :src="imgUrl" alt />
+              <img class="code" :src="imgUrl" @click="getcode" alt />
             </el-col>
           </el-row>
         </el-form-item>
@@ -62,7 +62,8 @@
 </template>
 
 <script>
-import reg from './components/reg'
+import reg from './components/reg';
+import {login} from '@/api/login.js'
 export default {
   components:{
     reg
@@ -70,7 +71,7 @@ export default {
   data() {
     return {
       //图片验证码
-      imgUrl:"",
+      imgUrl:process.env.VUE_APP_URL +"/captcha?type=login",
       
       form: {
         phone: "",
@@ -107,13 +108,29 @@ export default {
       //找到表单对象,调用validate方法
       this.$refs.form.validate(v=>{
         if(v){
-          alert("全部通过")
+          login({
+           phone:this.form.phone,
+           password:this.form.password,
+           code:this.form.num,
+          }).then(res=>{
+            //把token存起来
+            if(res.data.code==200){
+            window.localStorage.setItem('token',res.data.data.token)
+            this.$message.success('登录成功');
+            this.$router.push('/index');
+            }else{
+             this.$message.error(res.data.message) 
+            }
+          })
         }
       })
       // console.log("submit!");
     },
     goreg(){
      this.$refs.reg.dialogFormVisible=true
+    },
+    getcode(){
+      this.imgUrl=process.env.VUE_APP_URL +"/captcha?type=login&zcj="+Date.now()
     }
   }
 };
