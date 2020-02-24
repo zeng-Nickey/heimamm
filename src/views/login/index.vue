@@ -64,7 +64,8 @@
 <script>
 import reg from './components/reg';
 import {login} from '@/api/login.js';
-import {getToken} from '@/utils/token.js';
+import {setToken} from '@/utlis/token.js';
+
 export default {
   components:{
     reg
