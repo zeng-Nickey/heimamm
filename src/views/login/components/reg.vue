@@ -82,7 +82,7 @@ export default {
       //头像上传后的图片临时地址
       imageUrl: "",
       //要上传图片的接口地址
-      uploadUrl:  "/uploads",
+      uploadUrl: "/uploads",
       // 因为饿了么默认的表单上传键值是file,但接口文档的上传文件的name要求是image,所以要在html加name属性修改键值
 
       //是否显示标题栏

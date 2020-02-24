@@ -63,7 +63,8 @@
 
 <script>
 import reg from './components/reg';
-import {login} from '@/api/login.js'
+import {login} from '@/api/login.js';
+import {getToken} from '@/utils/token.js';
 export default {
   components:{
     reg
@@ -115,7 +116,8 @@ export default {
           }).then(res=>{
             //把token存起来
             if(res.data.code==200){
-            window.localStorage.setItem('token',res.data.data.token)
+            // window.localStorage.setItem('token',res.data.data.token)
+            setToken(res.data.data.token)
             this.$message.success('登录成功');
             this.$router.push('/index');
             }else{
