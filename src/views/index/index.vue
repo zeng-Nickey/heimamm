@@ -14,27 +14,28 @@
     </el-header>
     <el-container>
       <!-- 左侧栏的宽度改成auto可以让它的宽度随内容变化而变化 -->
-      <el-aside width="auto" class="my-aside">
-        <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse">
-          <el-menu-item index="1">
+      <!-- 饿了么router会进行页面间的跳转,修改index值就好了 -->
+      <el-aside width="auto" router class="my-aside">
+        <el-menu default-active="/index/chart" class="el-menu-vertical-demo" :collapse="isCollapse">
+          <el-menu-item index="/index/chart">
             <i class="el-icon-menu"></i>
             <span slot="title">数据概览</span>
           </el-menu-item>
 
-          <el-menu-item index="2">
+          <el-menu-item index="/index/user">
             <i class="el-icon-menu"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
 
-          <el-menu-item index="3">
+          <el-menu-item index="/index/question">
             <i class="el-icon-menu"></i>
             <span slot="title">题库列表</span>
           </el-menu-item>
-          <el-menu-item index="4">
+          <el-menu-item index="/index/business">
             <i class="el-icon-menu"></i>
             <span slot="title">企业列表</span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="/index/subject">
             <i class="el-icon-menu"></i>
             <span slot="title">学科列表</span>
           </el-menu-item>
@@ -60,6 +61,7 @@ export default {
       isCollapse: false
     };
   },
+  //
   //调用获取用户信息的接口
   created() {
     info().then(res => {
