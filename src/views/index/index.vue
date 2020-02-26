@@ -15,8 +15,13 @@
     <el-container>
       <!-- 左侧栏的宽度改成auto可以让它的宽度随内容变化而变化 -->
       <!-- 饿了么router会进行页面间的跳转,修改index值就好了 -->
-      <el-aside width="auto"  class="my-aside">
-        <el-menu default-active="/index/chart" router class="el-menu-vertical-demo" :collapse="isCollapse">
+      <el-aside width="auto" class="my-aside">
+        <el-menu
+          default-active="/index/chart"
+          router
+          class="el-menu-vertical-demo"
+          :collapse="isCollapse"
+        >
           <el-menu-item index="/index/chart">
             <i class="el-icon-menu"></i>
             <span slot="title">数据概览</span>
@@ -51,7 +56,7 @@
 
 <script>
 import { info, logout } from "@/api/index.js";
-import { removeToken } from "@/utlis/token.js";
+import { removeToken, getToken } from "@/utlis/token.js";
 export default {
   data() {
     return {
@@ -61,13 +66,32 @@ export default {
       isCollapse: false
     };
   },
-  //
+  //判断是否登录,取决于是否有token,应该在beforecreated钩子里写
+  //导入获取token的工具,判断获取的值是否为空,空就说明没登录打回登录页面
+  beforeCreate() {
+    if (getToken() == null) {
+      this.$message.error("登录错误,请重新登录");
+      this.$router.push("/login");
+      //给页面加标题
+      //document.title="首页"
+    }
+  },
   //调用获取用户信息的接口
+  //因为页面登录需要获取头像和用户名,所以我们已经一早就获取了token值,所以我们只需要在created()里面判断token是否正确,不正确就打回登录页面,避免伪造token跳过登录页面到别的页面
+  //但是由于这是应该异步的请求,所以会等html页面加载完后执行,所以网速慢的话会看见是到了index页面才会回到登录页面的,不够安全
+  //所以应该将token的真假判断提前到导航守卫(进入页面前)
   created() {
     info().then(res => {
-      //   console.log(res);
-      this.username = res.data.data.username;
-      this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
+      if (res.data.cade == 200) {
+        //   console.log(res);
+        this.username = res.data.data.username;
+        this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
+      } else if (res.data.code == 206) {
+        this.$message.error("登录状态异常,重新登录");
+        //这里要把错误的token删掉
+        removeToken();
+        this.$router.push("/login");
+      }
     });
   },
   methods: {
@@ -84,7 +108,7 @@ export default {
               //删除本地的token
               removeToken();
               //跳转登录页面
-              this.router.push("./login");
+              this.router.push("/login");
             }
           });
         })
