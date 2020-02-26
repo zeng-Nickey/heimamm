@@ -15,8 +15,8 @@
     <el-container>
       <!-- 左侧栏的宽度改成auto可以让它的宽度随内容变化而变化 -->
       <!-- 饿了么router会进行页面间的跳转,修改index值就好了 -->
-      <el-aside width="auto" router class="my-aside">
-        <el-menu default-active="/index/chart" class="el-menu-vertical-demo" :collapse="isCollapse">
+      <el-aside width="auto"  class="my-aside">
+        <el-menu default-active="/index/chart" router class="el-menu-vertical-demo" :collapse="isCollapse">
           <el-menu-item index="/index/chart">
             <i class="el-icon-menu"></i>
             <span slot="title">数据概览</span>
