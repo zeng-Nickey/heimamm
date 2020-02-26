@@ -72,8 +72,7 @@ const router = new VueRouter({
 let whiteurl=['/login','/reg']
 //  我们把 导航守卫要写在创建router对象的后面
 //  这个回调函数 是在即将跳转路由之前调用的
-//  to 到哪里去
-//  from 从哪里来
+//  to 到哪里去     from 从哪里来
 //  他们两个都是一个对象,对象中的path 使他们的路径
 //  next是一个函数  调用这个函数代表放行
 
@@ -87,12 +86,12 @@ router.beforeEach((to, from, next) => {
     }else{
         //别的页面就要做token的真假判断了
         info().then(res => {
-            if (res.data.cade == 200) {
+            if (res.data.code == 200) {
                 //什么token是对的,可以直接放行
                 next()
             } else if (res.data.code == 206) {
-                //弹出框提示:因为这里不是在vue,是js文件,这里的this不是vue实例,所以没有 this.$message
-            //   this.$message.error("登录状态异常,重新登录");
+//弹出框提示:因为这里不是在vue,是js文件,这里的this不是vue实例,所以没有 this.$message
+    //   this.$message.error("登录状态异常,重新登录");
                 Message.error("登录状态异常,重新登录")
               //这里要把错误的token删掉
               removeToken();
