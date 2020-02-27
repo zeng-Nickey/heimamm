@@ -48,7 +48,7 @@
       </el-aside>
       <el-main class="my-main">
         <!--子路由的 路由出口 -->
-        <router-view></router-view>Mainmy-aside
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
