@@ -8,6 +8,8 @@ import subject from '../views/index/subject/subject.vue'
 import chart from '../views/index/chart/chart.vue'
 import question from '../views/index/question/question.vue'
 import business from '../views/index/business/business.vue'
+//引入vuex
+import store from '../store/store'
 
 import {info} from "@/api/index.js";
 import { removeToken } from "@/utlis/token.js";
@@ -87,6 +89,8 @@ router.beforeEach((to, from, next) => {
         //别的页面就要做token的真假判断了
         info().then(res => {
             if (res.data.code == 200) {
+             store.commit('changeusername',res.data.data.username);
+             store.commit('changeAvatar', process.env.VUE_APP_URL + "/" + res.data.data.avatar)   
                 //什么token是对的,可以直接放行
                 next()
             } else if (res.data.code == 206) {

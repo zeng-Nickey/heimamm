@@ -7,8 +7,8 @@
         <span>黑马面面</span>
       </div>
       <div class="right">
-        <img :src="avatar" alt />
-        <span class="username">{{username}},你好</span>
+        <img :src="$store.state.avatar" alt />
+        <span class="username">{{$store.state.username}},你好</span>
         <el-button type="primary" size="small" @click="outclick">退出</el-button>
       </div>
     </el-header>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { info, logout } from "@/api/index.js";
+import { logout } from "@/api/index.js";
 import { removeToken, getToken } from "@/utlis/token.js";
 export default {
   data() {
@@ -80,20 +80,20 @@ export default {
   //因为页面登录需要获取头像和用户名,所以我们已经一早就获取了token值,所以我们只需要在created()里面判断token是否正确,不正确就打回登录页面,避免伪造token跳过登录页面到别的页面
   //但是由于这是应该异步的请求,所以会等html页面加载完后执行,所以网速慢的话会看见是到了index页面才会回到登录页面的,不够安全
   //所以应该将token的真假判断提前到导航守卫(进入页面前)
-  created() {
-    info().then(res => {
-      if (res.data.cade == 200) {
-        //   console.log(res);
-        this.username = res.data.data.username;
-        this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
-      } else if (res.data.code == 206) {
-        this.$message.error("登录状态异常,重新登录");
-        //这里要把错误的token删掉
-        removeToken();
-        this.$router.push("/login");
-      }
-    });
-  },
+  // created() {
+  //   // info().then(res => {
+  //   //   if (res.data.code == 200) {
+  //   //     //   console.log(res);
+  //   //     this.username = res.data.data.username;
+  //   //     this.avatar = process.env.VUE_APP_URL + "/" + res.data.data.avatar;
+  //   //   } else if (res.data.code == 206) {
+  //   //     this.$message.error("登录状态异常,重新登录");
+  //   //     //这里要把错误的token删掉
+  //   //     removeToken();
+  //   //     this.$router.push("/login");
+  //   //   }
+  //   // });
+  // },
   methods: {
     outclick() {
       this.$confirm("你是否要离开我, 是否继续?", "是否退出", {
