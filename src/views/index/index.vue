@@ -107,6 +107,9 @@ export default {
               this.$message.success("退出成功");
               //删除本地的token
               removeToken();
+              //清除用户信息
+              this.$store.commit('changeusername',"");
+              this.$store.commit('changeAvatar',"");
               //跳转登录页面
               this.router.push("/login");
             }
