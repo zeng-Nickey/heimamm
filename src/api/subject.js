@@ -28,10 +28,27 @@ export function subjectList(params) {
         params,
     })
 }
+
+//暴露一个新增学科的接口
+export function subAdd(data) {
+    return subRequest({
+        url: "/subject/add",
+        method: "post",
+        data,
+    })
+}
 //暴露一个修改学科状态的接口
 export function changeStatus(data) {
     return subRequest({
         url: "/subject/status",
+        method: "post",
+        data,
+    })
+}
+// 暴露一个删除学科的接口
+export function Removesub(data) {
+    return subRequest({
+        url: "/subject/remove",
         method: "post",
         data,
     })

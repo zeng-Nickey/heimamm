@@ -175,7 +175,7 @@ export default {
   //     background-color: rgb(233, 255, 192);
   //   }
   .my-main {
-    background-color: purple;
+    background-color:#ccc;
   }
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {

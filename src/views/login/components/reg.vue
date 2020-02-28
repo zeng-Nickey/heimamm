@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <el-dialog title="用户注册" center width="603px" :visible.sync="dialogFormVisible">
       <el-form ref="regForm" :model="form" :rules=" rules">
         <el-form-item prop="avatar" label="头像" :label-width="formLabelWidth">
