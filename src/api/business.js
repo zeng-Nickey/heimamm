@@ -44,16 +44,18 @@ export function changeStatus(data) {
     })
 }
 // 暴露一个删除企业的接口
-export function RemoveB(data) {
+export function Remove(data) {
     return Request({
         url: "/enterprise/remove",
+        method: "post",
         data,
     })
 }
 // 暴露一个企业编辑的接口
-export function RemoveEdit(data) {
+export function bunEdit(data) {
     return Request({
         url: "/enterprise/edit",
+        method: "post",
         data,
     })
 }

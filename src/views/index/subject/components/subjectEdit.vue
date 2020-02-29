@@ -26,13 +26,14 @@
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" >确 定</el-button>
+        <el-button type="primary" @click="makesure" >确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { Editsub} from "@/api/subject.js";
 export default {
   data() {
     return {
@@ -46,7 +47,39 @@ export default {
         name: [{ required: true, message: "学科名称不能为空", trigger: "blur" }]
       }
     };
-  }
+  },
+  methods: {
+    makesure() {
+      //做表单验证
+      this.$refs.Form.validate(valid => {
+        if (valid) {
+          // alert('submit!');
+          //调用新增接口---文档要求必须要有2个参数
+          Editsub(
+            //{ rid:this.form.rid,-----第一种写法
+            // name:this.form.name,
+            // shoet_name:this.form.shoet_name,
+            // intro:this.form.intro,
+            // remark:this.form.remark,}
+            // {}...this.form} -----第二种写法
+            //第三种写法直接传入form这个数组
+            this.form
+          ).then(res => {
+            //    console.log(res);
+            if (res.data.code == 200) {
+              this.$message.success("编辑成功");
+              this.dialogFormVisible = false;
+              //刷新表格页面
+              this.$parent.getsubList();
+            } else {
+              // console.log('error submit!!');
+              this.$message.error(res.data.message);
+            }
+          });
+        }
+      });
+    }
+  },
 };
 </script>
 

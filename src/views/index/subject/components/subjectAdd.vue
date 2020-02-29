@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     makesure() {
+      //做表单验证
       this.$refs.Form.validate(valid => {
         if (valid) {
           // alert('submit!');
@@ -83,10 +84,5 @@ export default {
 </script>
 
 <style>
-/* .add {
-  width: 602px;
-  height: 455px;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 2px 5px 0px rgba(63, 63, 63, 0.35);
-} */
+
 </style>

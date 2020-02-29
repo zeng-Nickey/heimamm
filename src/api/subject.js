@@ -52,3 +52,11 @@ export function Removesub(data) {
         data,
     })
 }
+//暴露一个编辑学科的接口
+export function Editsub(data) {
+    return Request({
+        url: "/subject/edit",
+        method: "post",
+        data,
+    })
+}

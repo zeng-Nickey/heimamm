@@ -22,7 +22,7 @@
           <el-form-item>
             <el-button type="primary" @click="search">搜索</el-button>
             <el-button @click="clearSearch">清除</el-button>
-            <el-button type="primary" icon="el-icon-plus">新增学科</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="add">新增学科</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -52,13 +52,14 @@
 
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="text" @click="edit">编辑</el-button>
+            <el-button type="text" @click="edit(scope.row)">编辑</el-button>
             <!-- 这里的禁用按钮要根据状态变化,所以用一个三元表达式写 -->
             <el-button
               type="text"
               @click="StatusClick(scope.row)"
             >{{scope.row.status===1?'禁用':'启用'}}</el-button>
-            <el-button type="text">删除</el-button>
+
+        <el-button type="text" @click=" Delete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,12 +78,17 @@
     <!-- 注册subjecAdd组件 -->
     <!-- <subjectAdd ref="addDialog"></subjectAdd>
     <subjectEdit ref="subEdit"></subjectEdit>-->
+    <businessDialong ref="businessDialong"></businessDialong>
   </div>
 </template>
 
 <script>
-import { businessList } from "@/api/business.js";
+import { businessList, changeStatus, Remove } from "@/api/business.js";
+import businessDialong from "./components/businessDialog.vue";
 export default {
+  components: {
+    businessDialong
+  },
   data() {
     return {
       //顶部行内表单的绑定对象
@@ -94,10 +100,63 @@ export default {
       //下面表格绑定的数据源
       tableData: [],
       //分页器的数据总量
-      total: 0
+      total: 0,
+      //记录上一次点击的是哪一行
+      olditem: null
     };
   },
   methods: {
+    //删除------a是点击的行的数据
+    Delete(a) {
+      Remove({ id: a.id }).then(res => {
+        console.log(res);
+        if (res.data.code == 200) {
+          this.$message.success("删除成功");
+          //优化:如果最后页只有一条数据,删除后应该刷新上一页的数据
+          //this.tableData表示当前页面有多少条数据
+          if (this.tableData.length == 1) {
+            // 代表是上一页
+            this.currentPage--;
+          }
+          // 如果page为0了代表是第一页删完了，不能让当前页记录为0，应该记录为1
+          if (this.currentPage == 0) {
+            this.currentPage = 1;
+          }
+          // 默认刷新当前页
+          this.getbusList();
+        } else {
+          this.$message.error(res.data.message);
+        }
+      });
+    },
+    //修改企业状态---a接受点击行的数据
+    StatusClick(a) {
+      //接口文档要求传入id
+      changeStatus({ id: a.id }).then(() => {
+        this.getbusList();
+      });
+    },
+    //企业编辑
+    //通过scope.row拿到点击行的值赋值给编辑对话框用items接收
+    edit(items) {
+      this.$refs.businessDialong.dialogFormVisible = true;
+      //控制标题显示内容----不是添加页面所以显示标题新增企业
+      this.$refs.businessDialong.isAdd = false;
+      //如果items(点击的行的数据)不是上次点击的行的数据
+      if (items != this.olditem) {
+        this.$refs.businessDialong.form = { ...items };
+        this.olditem = items;
+        // else{}什么都不填,新修改内容就不会被替换
+      }
+    },
+    //新增企业
+    add() {
+      this.$refs.businessDialong.dialogFormVisible = true;
+      //控制标题显示内容
+      this.$refs.businessDialong.isAdd = true;
+      //清空表单数据
+      this.$refs.businessDialong.form = {};
+    },
     //清除筛选
     //  给行内表单加ref，方便后面找到他
     //给每个el-form-item添加prop属性,不加prop，那么重置方法不会有效果
@@ -107,7 +166,7 @@ export default {
       this.$refs.formInline.resetFields();
       // this.currentPage = 1;
       // this.getbusList();
-      this.search()
+      this.search();
     },
     //搜索事件---只需要调用获取企业列表事件
     search() {
