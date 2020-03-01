@@ -31,9 +31,7 @@
       <el-table border :data="tableData" style="width: 100%">
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column prop="username" label="用户名"></el-table-column>
-
         <el-table-column prop="phone" label="电话"></el-table-column>
-
         <el-table-column prop="email" label="邮箱"></el-table-column>
         <el-table-column prop="role" label="角色"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
@@ -47,7 +45,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-            <!-- 这里的禁用按钮要根据状态变化,所以用一个三元表达式写 -->
+        <!-- 这里的禁用按钮要根据状态变化,所以用一个三元表达式写 -->
             <el-button
               type="text"
               @click="StatusClick(scope.row)"
@@ -101,7 +99,7 @@ export default {
   methods: {
     //用户状态修改
     StatusClick(item) {
-     changeStatus({ id: item.id }).then(() => {
+      changeStatus({ id: item.id }).then(() => {
         this.getUserList();
       });
     },

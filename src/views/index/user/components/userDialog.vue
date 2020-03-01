@@ -24,7 +24,7 @@
         </el-form-item>
 
         <el-form-item label="状态" prop="status" :label-width="formLabelWidth">
-          <el-select v-model="form.status" placeholder="请选择状态" >
+          <el-select v-model="form.status" placeholder="请选择状态">
             <el-option label="启用" value="1"></el-option>
             <el-option label="禁用" value="0"></el-option>
           </el-select>
@@ -34,12 +34,11 @@
           <el-input v-model="form.remark" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="makesure(scope.row)">确 定</el-button>
-        </div>
-    
+
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="makesure">确 定</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -81,8 +80,7 @@ export default {
     };
   },
   methods: {
-    makesure(item) {
-      console.log(item);
+    makesure() {
       //做表单验证
       this.$refs.form.validate(valid => {
         if (valid) {
@@ -99,20 +97,17 @@ export default {
               }
             });
           } else {
-            console.log("error submit!!");
-            return false;
+            Edituser(this.form).then(res => {
+              if (res.data.code == 200) {
+                this.$message.success("编辑成功");
+                this.dialogFormVisible = false;
+                // item.status = item.status ? "启用" : "禁用";---启程大佬的代码
+                this.$parent.getUserList();
+              } else {
+                this.$message.error(res.data.message);
+              }
+            });
           }
-        } else {
-          Edituser(this.form).then(res => {
-            if (res.data.code == 200) {
-              this.$message.success("编辑成功");
-              this.dialogFormVisible = false;
-              // item.status = item.status ? "启用" : "禁用";---启程大佬的代码
-              this.$parent.getUserList();
-            } else {
-              this.$message.error(res.data.message);
-            }
-          });
         }
       });
     }

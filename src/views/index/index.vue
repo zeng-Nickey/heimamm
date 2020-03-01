@@ -22,25 +22,25 @@
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
         >
-          <el-menu-item index="/index/chart">
+          <el-menu-item index="/index/chart" v-if="['超级管理员','管理员'].includes($store.state.role)">
             <i class="el-icon-menu"></i>
             <span slot="title">数据概览</span>
           </el-menu-item>
 
-          <el-menu-item index="/index/user">
+          <el-menu-item index="/index/user" v-if="['超级管理员','管理员'].includes($store.state.role)">
             <i class="el-icon-menu"></i>
             <span slot="title">用户列表</span>
           </el-menu-item>
 
-          <el-menu-item index="/index/question">
+          <el-menu-item index="/index/question" v-if="['超级管理员','管理员','老师','学生'].includes($store.state.role)">
             <i class="el-icon-menu"></i>
             <span slot="title">题库列表</span>
           </el-menu-item>
-          <el-menu-item index="/index/business">
+          <el-menu-item index="/index/business" v-if="['超级管理员','管理员','老师'].includes($store.state.role)">
             <i class="el-icon-menu"></i>
             <span slot="title">企业列表</span>
           </el-menu-item>
-          <el-menu-item index="/index/subject">
+          <el-menu-item index="/index/subject" v-if="['超级管理员','管理员','老师','学生'].includes($store.state.role)">
             <i class="el-icon-menu"></i>
             <span slot="title">学科列表</span>
           </el-menu-item>
@@ -57,9 +57,13 @@
 <script>
 import { logout } from "@/api/index.js";
 import { removeToken, getToken } from "@/utlis/token.js";
+//导入子路由的规则
+import childrenrouter from "@/router/childrenrouter.js"
 export default {
   data() {
     return {
+      //把子路由规则数组存到data
+      childrenrouter,
       username: "",
       avatar: "",
       //左侧栏折叠默认为展开
@@ -111,7 +115,7 @@ export default {
               this.$store.commit('changeusername',"");
               this.$store.commit('changeAvatar',"");
               //跳转登录页面
-              this.router.push("/login");
+              this.$router.push("/login");
             }
           });
         })
