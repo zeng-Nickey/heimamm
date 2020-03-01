@@ -22,7 +22,7 @@
           <el-form-item>
             <el-button type="primary" @click="search">搜索</el-button>
             <el-button @click="clearSearch">清除</el-button>
-            <el-button type="primary" icon="el-icon-plus" @click="add">新增学科</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="add">新增企业</el-button>
           </el-form-item>
         </el-form>
       </div>

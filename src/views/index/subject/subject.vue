@@ -165,6 +165,8 @@ export default {
     },
     //搜索按钮的事件---只需要重新调用一下获取列表函数,然后再
     search() {
+      //回到第一页获取全部搜索数据
+      this.currentPage = 1;
       this.getsubList();
     },
 
