@@ -16,14 +16,6 @@ import store from './store/store.js'
 //我们这个文件只需要保证能够执行里面的代码就好了,所以简单导入
 import '@/filter/filters.js'
 
-//导入全局学科下拉框组件
-import subjectSelect from "./components/subjectSelect.vue"
-Vue.component('subjectSelect',subjectSelect)
-
-//导入全局企业下拉框组件
-import businessSelect from "./components/businessSelect.vue"
-Vue.component('businessSelect',businessSelect)
-
 new Vue({
   router,
   store,
