@@ -50,7 +50,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" v-if="['超级管理员','管理员','老师'].includes($store.state.role)">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
             <!-- 这里的禁用按钮要根据状态变化,所以用一个三元表达式写 -->
@@ -58,7 +58,7 @@
               type="text"
               @click="StatusClick(scope.row)"
             >{{scope.row.status===1?'禁用':'启用'}}</el-button>
-            <el-button v-if="['超级管理员','管理员',].includes($store.state.role)" type="text" @click="Delete(scope.row)">删除</el-button>
+            <el-button type="text" @click="Delete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
