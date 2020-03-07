@@ -111,7 +111,7 @@ export default {
     //删除按钮删除学科事件
     Delete(a) {
       Removesub({ id: a.id }).then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.data.code == 200) {
           this.$message.success("删除成功");
           //优化:如果最后页只有一条数据,删除后应该刷新上一页的数据
